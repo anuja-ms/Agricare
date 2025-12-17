@@ -1,0 +1,149 @@
+{% include 'Officer/header.html' %}
+
+<style>
+/* Card wrapper for the table */
+.table_section {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: rgb(211, 246, 211);
+    width: 95%;
+    padding: 20px;
+}
+
+/* Table styles */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th, .table td {
+    padding: 12px 15px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 14px;
+}
+
+.table th {
+    background-color: gray;
+    color: white;
+    font-weight: bold;
+}
+
+.table tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #fff;
+}
+
+.table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Button styling */
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    color: white;
+    transition: 0.3s;
+}
+
+.table_section .table-responsive-sm {
+    overflow-x: auto;
+}
+
+/* Spacing and alignment */
+.table-section-footer {
+    margin-top: 30px;
+    text-align: center;
+}
+
+/* Filter dropdown styling */
+.filter-section {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.filter-section select {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    width: 200px;
+}
+
+</style>
+
+<div class="table_section">
+    <div class="card">
+        <h3 class="text-center" style="color: #007bff; font-weight: 600; margin-bottom: 20px;">Insurance Applications</h3>
+
+        <!-- Filter Dropdown Section -->
+        <div class="filter-section">
+            <form method="GET" action="">
+                <label for="status" style="font-size: 16px; font-weight: bold;">Filter by Status:</label>
+                <select name="status" id="status" onchange="this.form.submit()">
+                    <option value="">All</option>
+                    <option value="Requested" {% if request.GET.status == 'Requested' %}selected{% endif %}>Requested</option>
+                    <option value="Confirmed" {% if request.GET.status == 'Confirmed' %}selected{% endif %}>Confirmed</option>
+                    <option value="Rejected" {% if request.GET.status == 'Rejected' %}selected{% endif %}>Rejected</option>
+                </select>
+            </form>
+        </div>
+
+        <div class="table-responsive-sm">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>SI No</th>
+                        <th>Application ID</th>
+                        <th>Farmer Name</th>
+                        <th>Apply Date</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in insurance %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ i.applyid }}</td>
+                        <td>{{ i.farmerid.farmername }}</td>
+                        <td>{{ i.applydate }}</td>
+                        <td>{{ i.status }}</td>
+                        <td>
+                            <a href="{% url 'viewmoreinsurance' applyid=i.applyid %}" class="btn btn-danger">View More</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="table-section-footer">
+    <!-- You can add pagination or other footer elements here -->
+</div>
+<br><br><br>
+<br><br><br>
+<br><br><br>
+
+
+{% include 'Officer/footer.html' %}

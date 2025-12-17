@@ -1,0 +1,37 @@
+{% include 'Farmer/header.html' %}
+{% load static %}
+
+<section id="blog-posts-2" class="blog-posts-2 section">
+    <div class="container">
+        <div class="row gy-4">
+            {% for tr in training %}
+                <div class="col-lg-4 d-flex">
+                    <article class="position-relative h-100 w-100">
+
+                        <div class="post-img position-relative overflow-hidden">
+                            <img src="/images/{{ tr.image }}" class="img-fluid fixed-img-size" alt="{{ tr.trainingname }}">
+                        </div>
+
+                        <div class="meta d-flex align-items-end">
+                            <span class="post-date">
+                                <span>{{ tr.date|date:"d" }}</span> {{ tr.date|date:"F" }}
+                            </span>
+                        </div>
+
+                        <div class="post-content d-flex flex-column">
+                            <h3 class="post-title">{{ tr.trainingname }}</h3>
+                            <a href="{% url 'viewmoretraining' trainingid=tr.trainingid %}" class="readmore stretched-link">
+                                <span>Read More</span><i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+
+                    </article>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+{% include 'Farmer/footer.html' %}
+

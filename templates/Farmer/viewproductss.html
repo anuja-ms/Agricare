@@ -1,0 +1,209 @@
+{% include 'Farmer/header.html' %}
+
+<!-- Services 2 Section -->
+<section id="services-2" class="services-2 section dark-background">
+  <!-- Section Title -->
+  <div class="container section-title" data-aos="fade-up">
+    <h2>Products</h2>
+    <p>Explore our wide range of agricultural services tailored to your needs.</p>
+  </div>
+  <!-- End Section Title -->
+
+  <div class="services-carousel-wrap">
+    <div class="container">
+      <div class="swiper init-swiper">
+        <script type="application/json" class="swiper-config">
+          {
+            "loop": true,
+            "speed": 600,
+            "autoplay": {
+              "delay": 5000
+            },
+            "slidesPerView": "auto",
+            "pagination": {
+              "el": ".swiper-pagination",
+              "type": "bullets",
+              "clickable": true
+            },
+            "navigation": {
+              "nextEl": ".js-custom-next",
+              "prevEl": ".js-custom-prev"
+            },
+            "breakpoints": {
+              "320": {
+                "slidesPerView": 1,
+                "spaceBetween": 20
+              },
+              "768": {
+                "slidesPerView": 2,
+                "spaceBetween": 30
+              },
+              "1200": {
+                "slidesPerView": 3,
+                "spaceBetween": 40
+              }
+            }
+          }
+        </script>
+        <button class="navigation-prev js-custom-prev">
+          <i class="bi bi-arrow-left-short"></i>
+        </button>
+        <button class="navigation-next js-custom-next">
+          <i class="bi bi-arrow-right-short"></i>
+        </button>
+
+        <div class="swiper-wrapper">
+          {% for pv in product %}
+          <div class="swiper-slide">
+            <div class="service-item">
+              <div class="service-item-contents">
+                <a href="">
+                  <span class="service-item-category">Agriculture Services</span>
+                  <h2 class="service-item-title">{{ pv.productname }}</h2>
+                </a>
+              </div>
+              <p>{{ pv.productdescription }}</p> <!-- Added description for better context -->
+              <img src="/images/{{ pv.productimage }}" alt="{{ pv.productname }}" class="img-fluid">
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Embedded CSS -->
+  <style>
+    .services-2 {
+      padding: 80px 0;
+      background-color: #333;
+      color: #fff;
+    }
+
+    .section-title h2 {
+      font-size: 36px;
+      margin-bottom: 15px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .section-title p {
+      font-size: 18px;
+      margin-bottom: 40px;
+      text-align: center;
+      color: #bbb;
+    }
+
+    .services-carousel-wrap {
+      position: relative;
+    }
+
+    .swiper-slide {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+    }
+
+    
+
+    .service-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    .service-item-contents a {
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .service-item-category {
+      font-size: 16px;
+      font-weight: bold;
+      display: block;
+      margin-bottom: 10px;
+      color: #ffb600; /* Bright color for emphasis */
+    }
+
+    .service-item-title {
+      font-size: 22px;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    .service-item p {
+      font-size: 14px;
+      color: #ccc;
+      margin-bottom: 20px;
+    }
+
+    .service-item img {
+      display: block;
+      margin: 0 auto;
+      max-width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .swiper-pagination {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .navigation-prev,
+    .navigation-next {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .navigation-prev {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .navigation-next {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      border-radius: 30px;
+      padding: 12px 30px;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #0056b3;
+      transform: translateY(-3px);
+    }
+
+    @media (max-width: 767px) {
+      .service-item {
+        padding: 15px;
+      }
+
+      .service-item-title {
+        font-size: 18px;
+      }
+
+      .service-item img {
+        height: 200px;
+      }
+    }
+  </style>
+</section>
+<!-- /Services 2 Section -->
+
+{% include 'Farmer/footer.html' %}

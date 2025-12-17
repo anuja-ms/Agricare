@@ -1,0 +1,109 @@
+{% include 'Officer/header.html' %}
+
+<style>
+/* Adding Card style to the table */
+.card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #e0f7e0; /* Light green background for the card */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    width: 90%; /* Reduce the card width */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.card-header {
+    background-color: #81c784; /* Light green background for the header */
+    color: black;
+    padding: 10px; /* Reduce header padding */
+    border-radius: 8px 8px 0 0;
+}
+
+.card-body {
+    padding: 15px; /* Reduce body padding */
+}
+
+.table {
+    width: 100%;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+}
+
+.table th, .table td {
+    text-align: center;
+    padding: 8px; /* Reduce padding inside the cells */
+    vertical-align: middle;
+}
+
+.table-bordered {
+    border: 1px solid #ddd;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.table img {
+    max-width: 100%;
+    height: auto;
+}
+
+.btn-sm {
+    padding: 5px 10px;
+}
+
+.thead-light {
+    background-color: #f8f9fa;
+    color: #495057;
+}
+
+.table th {
+    font-weight: bold;
+    font-size: 18px; /* Increased font size for table headers */
+}
+
+.table td {
+    font-size: 16px; /* Increased font size for table cells */
+}
+</style>
+
+<div class="table_section padding_infor_info">
+    <div class="table-responsive-sm">
+        <!-- Card Wrapper -->
+        <div class="card">
+            <div class="card-header text-center">
+                <h4>Training Classes</h4>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered table-hover">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>SI No</th>
+                            <th>Class</th>
+                            <th>Image</th>
+                            <th>Description</th>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for n in train %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ n.trainingname }}</td> <!--categoryname is filename in table-->
+                            <td><img src="/images/{{ n.image }}" style="width: 100px; height: 60px;"></td>
+                            <td>{{ n.description }}</td>
+                            <td>{{ n.date }}</td>
+                            <td><a href="{% url 'deletetraining' trainingid=n.trainingid %}" onclick="return confirm('Do you want to Delete?')" class="btn btn-danger btn-sm">Delete</a></td>
+                            <td><a href="{% url 'edittraining' trainingid=n.trainingid %}" onclick="return confirm('Do you want to Edit?')" class="btn btn-danger btn-sm">Edit</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<br><br><br><br><br><br>
+{% include 'Officer/footer.html' %}

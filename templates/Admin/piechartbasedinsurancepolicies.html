@@ -1,0 +1,44 @@
+<div id="container" style="width: 75%; max-width: 600px; margin: auto;">
+    <canvas id="pie-chart"></canvas>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const ctx = document.getElementById('pie-chart').getContext('2d');
+  
+      const data = {
+        labels: {{ labels|safe }},
+        datasets: [{
+          data: {{ data|safe }},
+          backgroundColor: ['#FF5733', '#3498DB', '#2ECC71', '#F1C40F', '#9B59B6'],
+          hoverOffset: 10
+        }]
+      };
+  
+      const config = {
+        type: 'pie',
+        data: data,
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: {
+                font: { size: 14 },
+                color: '#333'
+              }
+            },
+            tooltip: {
+              enabled: true,
+              backgroundColor: '#222',
+              bodyFont: { size: 14 },
+              titleFont: { size: 16, weight: 'bold' }
+            }
+          }
+        }
+      };
+  
+      new Chart(ctx, config);
+    });
+</script>

@@ -1,0 +1,316 @@
+{% include 'Farmer/header.html' %} 
+
+<style>
+    body {
+  background: #e4ece5;
+  color: #363636;
+  font-size: 16px;
+  font-family: "Cantarell", sans-serif;
+  line-height: 22px;
+}
+
+#formContainer {
+  position: fixed;
+  top: 7%;
+  right: 7%;
+  bottom: 7%;
+  left: 7%;
+  margin: auto;
+  max-width: 640px;
+  max-height: 800px;
+}
+
+#formHeader h3 {
+  margin: 0;
+  padding: 0.4em;
+  text-align: center;
+  font-size: 2.4em;
+  font-weight: 300;
+  opacity: 0.8;
+}
+
+#formBody {
+  font-weight: 300;
+  font-size: 1.15em;
+}
+
+.rf_notice {
+  font-size: 0.8em;
+  text-align: center;
+}
+
+.FlowupLabels .fl_label {
+  cursor: text;
+}
+
+.rf_submit {
+  background: none;
+  border-radius: 4px;
+  border: 1px dotted #3dd585;
+  color: #3dd585;
+  font-size: 18px;
+  padding: 5px 25px;
+  display: block;
+  margin: auto;
+}
+.rf_submit:hover {
+  cursor: pointer;
+  background: #3dd585;
+  color: #555;
+}
+.rf_submit:focus {
+  outline: none;
+  border: 1px solid #3dd585;
+}
+
+#miscInfo {
+  position: fixed;
+  bottom: 10px;
+  left: 15px;
+  font-size: 12px;
+  color: #999;
+}
+#miscInfo a {
+  color: #999;
+}
+#ghBanner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 0;
+}
+
+/* 
+ * FlowupLabels Basic Stylesheet 
+ * -----------------------------
+ * This style sheet is marked with comments indicating 
+ * what should and what shouldn't be changed for your 
+ * styling purposes.
+ */
+
+.FlowupLabels .fl_wrap {
+  /* Can change */
+  width: 500px;
+  height: 46px;
+  margin: 12px auto;
+
+  /* Don't change */
+  display: block;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* initial label state */
+.FlowupLabels .fl_label {
+  /* Can change */
+  top: 15px;
+  left: 5px;
+
+  /* Don't change */
+  position: absolute;
+  z-index: 3; /* This can be removed but then the labels must be placed after the inputs in the HTML */
+  -webkit-transition: all 0.08s ease;
+  -moz-transition: all 0.08s ease;
+  -transition: all 0.08s ease;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+
+.FlowupLabels .fl_input {
+  /* Can change */
+  background: none;
+  border: none;
+  border-bottom: 1px solid #555;
+  border-radius: 0;
+  font-size: 16px;
+  line-height: 22px;
+  padding: 20px 0 0 5px;
+
+  /* Don't change */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 2; /* This can be removed but then the labels must be placed after the inputs in the HTML */
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* Focus & populated label styling */
+.FlowupLabels .fl_wrap.focused .fl_label,
+.FlowupLabels .fl_wrap.populated .fl_label {
+  /* Can change */
+  -webkit-transform: translate(0, -12px);
+  -moz-transform: translate(0, -12px);
+  -ms-transform: translate(0, -12px);
+  -o-transform: translate(0, -12px);
+  transform: translate(0, -12px);
+  font-size: 12px;
+  color: #555;
+}
+.FlowupLabels .fl_wrap.focused .fl_label {
+  /* Can change */
+  color: #00a34d;
+}
+
+</style>
+<script>
+    (function ($) {
+  $.fn.FlowupLabels = function (options) {
+    var defaults = {
+        // Useful if you pre-fill input fields or if localstorage/sessionstorage is used.
+        feature_onLoadInit: false,
+        // Class names used for focus and populated statuses
+        class_focused: "focused",
+        class_populated: "populated"
+      },
+      settings = $.extend({}, defaults, options);
+
+    return this.each(function () {
+      var $scope = $(this);
+
+      $scope
+        .on("focus.flowupLabelsEvt", ".fl_input", function () {
+          $(this).parent().addClass(settings.class_focused);
+        })
+        .on("blur.flowupLabelsEvt", ".fl_input", function () {
+          var $this = $(this);
+          $this.val().length
+            ? $this
+                .parent()
+                .addClass(settings.class_populated)
+                .removeClass(settings.class_focused)
+            : $this
+                .parent()
+                .removeClass(
+                  settings.class_populated + " " + settings.class_focused
+                );
+        });
+
+      // On page load, make sure it looks good
+      if (settings.feature_onLoadInit) {
+        $scope.find(".fl_input").trigger("blur.flowupLabelsEvt");
+      }
+    });
+  };
+})(jQuery);
+
+// In your main.js
+(function () {
+  $(".FlowupLabels").FlowupLabels({
+    /*
+		These are all the default values
+		You may exclude any/all of these options
+		if you won't be changing them
+		 */
+    // Handles the possibility of having input boxes prefilled on page load
+    feature_onInitLoad: false,
+
+    // Class when focusing an input
+    class_focused: "focused",
+    // Class when an input has text entered
+    class_populated: "populated"
+  });
+})();
+
+</script>
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<link href='https://fonts.googleapis.com/css?family=Cantarell:400,700' rel='stylesheet' type='text/css'>
+
+<div id='formContainer' class="container mt-4">
+  <div id='formHeader' class="text-center mb-3">
+      <h3>Product Request Form</h3>
+  </div>
+  
+  <form id='formBody' class='fileRequestForm FlowupLabels' method="POST" action="{% url 'sendrequest_process' %}">
+      {% csrf_token %}
+      <input type="hidden" name="farmer" value="{{farmer.farmerid}}" id="email">
+      <input type="hidden" name="notification" value="{{noti.notiid}}" id="eail">
+
+      <p class='rf_notice text-center'>
+          Your information will be kept private and is only collected to satisfy our burning curiosity.
+      </p>
+
+      <div class='form-group d-flex align-items-center'>
+          <label for='rf_name' class="col-3 fw-bold">Farmer Name:</label>
+          <input class='form-control col' type='text' name="farmername" value="{{ farmer.farmername }}" id='rf_name' readonly />
+      </div>
+
+      <div class='form-group d-flex align-items-center mt-3'>
+          <label for='rf_product' class="col-3 fw-bold">Product:</label>
+          <input class='form-control col' type='text' name="product" value="{{ noti.notification }}" id='rf_product' readonly />
+      </div>
+
+      <div class='form-group d-flex align-items-center mt-3'>
+          <label for='rf_quantity' class="col-3 fw-bold">Count:</label>
+          <input class='form-control col' type='number' name="quantity" id='rf_quantity' required />
+      </div>
+
+      <div class='form-group d-flex align-items-center mt-3'>
+          <label for='rf_amount' class="col-3 fw-bold">Amount:</label>
+          <input class='form-control col' type='number' step="0.01" name="amount" value="{{ noti.amount }}" id='rf_amount' readonly />
+      </div>
+      <div class='form-group d-flex align-items-center mt-3'>
+    <label for='rf_totalamount' class="col-3 fw-bold">Total Amount:</label>
+    <input class='form-control col' type='text' name="totalamount" id='rf_totalamount' readonly />
+</div>
+
+
+      <div class="text-center mt-4">
+<button type="submit" id="submitBtn" onclick="this.disabled=true; this.form.submit();">Submit</button>
+      </div>
+  </form>
+</div>
+
+
+<!-- Start of Extra Demo Stuff -->
+<div id='miscInfo'>
+  <p>
+    Made by <a href='http://enfos.com'>ENFOS, Inc.</a>
+  </p>
+  <p>
+    <a href='https://github.com/ENFOS/flowupLabels.js'>Get the code</a> |
+    <a href='https://github.com/ENFOS/flowupLabels.js/blob/master/LICENSE'>MIT License</a>
+  </p>
+</div>
+<a href="https://github.com/ENFOS/flowupLabels.js">
+  <img id='ghBanner' src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub">
+</a>
+<!-- End of Extra Demo Stuff -->
+
+
+{% include 'Farmer/footer.html' %} 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get references to the input fields
+        const quantityInput = document.getElementById('rf_quantity');
+        const amountInput = document.getElementById('rf_amount');
+        const totalAmountInput = document.getElementById('rf_totalamount');
+
+        // Function to update the total amount
+        function updateTotalAmount() {
+            const quantity = parseFloat(quantityInput.value) || 0;
+            const amount = parseFloat(amountInput.value) || 0;
+            const totalAmount = quantity * amount;
+
+            // Update the total amount field
+            totalAmountInput.value = totalAmount.toFixed(2);
+        }
+
+        // Add event listeners to quantity input
+        quantityInput.addEventListener('input', updateTotalAmount);
+
+        // Initial calculation in case there is already a value in the quantity field
+        updateTotalAmount();
+    });
+</script>

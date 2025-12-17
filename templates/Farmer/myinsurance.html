@@ -1,0 +1,135 @@
+{% include 'Farmer/header.html' %}
+
+<style>
+    /* General body and page styling */
+    body {
+        background-color: #f7fafc; /* Light background color */
+        font-family: 'Arial', sans-serif;
+        color: #333;
+        margin-top: 20px;
+    }
+
+    /* Table Section Styling */
+    .table_section {
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+
+    /* Table Responsive Styling */
+    .table-responsive-sm {
+        margin: 0 auto; /* Center the table */
+        max-width: 90%;
+    }
+
+    /* Table Styling */
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: center;
+        background-color: #ffffff; /* White background for the table */
+        border-radius: 10px; /* Rounded corners */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    }
+
+    .table th, .table td {
+        padding: 15px; /* Add padding for table cells */
+        border-bottom: 1px solid #ddd; /* Light border between rows */
+    }
+
+    /* Table Header Styling */
+    .table th {
+        background-color: #28a745; /* Green background for header */
+        color: white;
+        font-size: 1.1rem;
+        font-weight: bold;
+    }
+
+    /* Table Row Styling */
+    .table td {
+        background-color: #ffffff;
+        color: #333;
+        font-size: 0.95rem;
+    }
+
+    /* Hover Effect for Table Rows */
+    .table tbody tr:hover {
+        background-color: #f1f1f1; /* Light grey on hover */
+        cursor: pointer;
+    }
+
+    /* Stripe Effect for Alternate Rows */
+    .table-striped tbody tr:nth-child(odd) {
+        background-color: #f9f9f9; /* Light grey for odd rows */
+    }
+
+    /* Button Styling */
+    .btn {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+        border-radius: 8px;
+        transition: background-color 0.3s ease;
+        text-decoration: none; /* Remove underline */
+        color: white;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+
+    .btn-danger:hover {
+        background-color: #c82333;
+        border-color: #bd2130;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .table th, .table td {
+            padding: 10px; /* Smaller padding on smaller screens */
+            font-size: 0.9rem; /* Adjust font size */
+        }
+
+        .btn {
+            padding: 7px 12px; /* Smaller button padding for mobile */
+        }
+    }
+</style>
+
+<!-- Table Section -->
+<div class="table_section">
+    <div class="table-responsive-sm">
+        <h2 class="text-center" style="color: #28a745;">My Insurance Applications</h2> <!-- Table Title -->
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>SI No</th>
+                    <th>Farmer Name</th>
+                    <th>Apply Date</th>
+                    <th>Status</th>
+                    <th>Remark</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in insurance %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ i.applyid.farmerid.farmername }}</td>
+                    <td>{{ i.applyid.applydate }}</td>
+                    <td>{{ i.status }}</td>
+                    <td>{{ i.remarkdate }}</td>
+                    <td>
+                        <a href="{% url 'myinsuranceviewmore' insuranceid=i.insuranceid %}" class="btn btn-danger">
+                            View More
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+{% include 'Farmer/footer.html' %}

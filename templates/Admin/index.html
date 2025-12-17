@@ -1,0 +1,81 @@
+{% load static %}
+{% include 'Admin/header.html' %} 
+{% include 'Admin/sidebar.html' %}
+
+<!-- partial -->
+<div class="main-panel">
+  <div class="content-wrapper">
+    <div class="page-header">
+      <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white me-2">
+          <i class="mdi mdi-home"></i>
+        </span> Dashboard
+      </h3>
+      <nav aria-label="breadcrumb">
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item active" aria-current="page">
+            <span></span>Overview <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Product Requests (Bar Chart)</h4>
+            <canvas id="barChart"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Insurance Policies (Pie Chart)</h4>
+            <canvas id="pieChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% include 'Admin/footer.html' %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  var barChartData = {
+    labels: {{ bar_labels|safe }},
+    datasets: [{
+      label: 'Product Requests',
+      backgroundColor: 'rgba(75, 192, 192, 0.6)',
+      borderColor: 'rgba(75, 192, 192, 1)',
+      borderWidth: 1,
+      data: {{ bar_data|safe }}
+    }]
+  };
+
+  var pieChartData = {
+    labels: {{ pie_labels|safe }},
+    datasets: [{
+      label: 'Insurance Policies',
+      backgroundColor: ['#ff6384', '#36a2eb', '#cc65fe', '#ffce56'],
+      data: {{ pie_data|safe }}
+    }]
+  };
+
+  window.onload = function() {
+    var ctxBar = document.getElementById("barChart").getContext("2d");
+    new Chart(ctxBar, {
+      type: 'bar',
+      data: barChartData
+    });
+
+    var ctxPie = document.getElementById("pieChart").getContext("2d");
+    new Chart(ctxPie, {
+      type: 'pie',
+      data: pieChartData
+    });
+  };
+</script>

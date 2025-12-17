@@ -1,0 +1,137 @@
+{% include 'Farmer/header.html' %}
+
+<div class="table_section padding_infor_info">
+    <div class="container mt-5">
+        <!-- Card Container with Background -->
+        <div class="card shadow-lg border-light">
+            <div class="card-body">
+                <!-- Notification Icon with Title -->
+                <h3 class="card-title text-center text-success mb-4">
+                    <!-- Notification Bell Icon -->
+                    <i class="fa fa-bell"></i> Notifications
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+                </h3>
+
+                <div class="table-responsive-sm">
+                    <table class="table table-striped table-bordered">
+                        <thead class="bg-light">
+                            <tr>
+                                <th class="text-success">SI</th>
+                                <th class="text-success">Product Name</th>
+                                <th class="text-success">To Date</th>
+                                <th class="text-success">From Date</th>
+                                <th class="text-success">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for pv in noti %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ pv.productid.productname }}</td>
+                                <td>{{ pv.todate }}</td>
+                                <td>{{ pv.frdate }}</td>
+                                <td>
+                                    <a href="{% url 'viewmore' notiid=pv.notiid %}"
+                                       class="btn btn-danger btn-sm">View More</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br><br><br><br>
+
+{% include 'Farmer/footer.html' %}
+
+<!-- Custom CSS to Style Table Inside Card -->
+<style>
+    /* Table Section */
+    .table_section {
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+
+    /* Card Styling */
+    .card {
+        background-color: lightgreen; /* Light background for the card */
+        border-radius: 10px; /* Rounded corners */
+        padding: 20px;
+    }
+
+    .card-title {
+        font-weight: bold;
+        color: green; /* Green title color */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .card-title .fa {
+        margin-right: 10px; /* Space between icon and text */
+    }
+
+    /* Table Styling */
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 1rem;
+    }
+
+    /* Table Header */
+    .table thead {
+        background-color: #ffffff; /* White background for the header */
+    }
+
+    .table thead th {
+        color: green; /* Green color for the column names */
+        font-weight: bold;
+        text-align: center;
+    }
+
+    /* Table Rows */
+    .table tbody tr {
+        text-align: center;
+        background-color: #f8f9fa;
+    }
+
+    .table tbody tr:hover {
+        background-color: #e9ecef; /* Light gray hover effect */
+    }
+
+    .table td {
+        padding: 12px;
+        vertical-align: middle;
+    }
+
+    .table td a {
+        text-decoration: none;
+    }
+
+    /* Button Styling */
+    .btn-sm {
+        padding: 6px 12px;
+        font-size: 0.9rem;
+    }
+
+    /* Table Borders */
+    .table-bordered {
+        border: 1px solid #dee2e6;
+    }
+
+    .table-bordered th, .table-bordered td {
+        border: 1px solid #dee2e6;
+    }
+
+    /* Responsive Table */
+    @media (max-width: 768px) {
+        .table-responsive-sm {
+            overflow-x: auto;
+        }
+    }
+</style>

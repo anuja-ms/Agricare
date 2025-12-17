@@ -1,0 +1,140 @@
+{% include 'Farmer/header.html' %}
+
+<style>
+    /* Set the background color of the entire page to green */
+    body {
+        background-color: grey; /* Green background */
+        color: black; /* White text color for contrast */
+    }
+
+    /* Container for the service cards */
+    .service-card-container {
+        display: flex;
+        justify-content: space-between; /* Align left and right side */
+        gap: 30px;
+        margin-top: 30px;
+        flex-wrap: wrap; /* Allow wrapping for smaller screens */
+    }
+
+    /* Styling for the service card */
+    .service-card {
+        background-color: #f9f9f9; /* Light grey background for the card */
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for better depth */
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        flex-basis: 48%; /* Allow the cards to be side-by-side */
+    }
+
+    .service-card:hover {
+        transform: translateY(-10px); /* Slight hover effect */
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Notification card styling */
+    .notification-card {
+        background-color: #d4edda; /* Light green for notification */
+        width: 50%; /* Make notification card take half space */
+    }
+
+    /* Product card styling */
+    .product-card {
+        background-color: lightgreen; /* Light green for product */
+        width: 50%; /* Make product card take half space */
+    }
+
+    .service-card h2 {
+        margin-top: 0;
+        color: #155724; /* Dark green for headings */
+        font-size: 1.6rem; /* Larger font size for better readability */
+        font-weight: bold;
+    }
+
+    .service-card p {
+        font-size: 1rem; /* Readable text size */
+        margin: 10px 0;
+        line-height: 1.5; /* Improved line spacing */
+    }
+
+    .icon {
+        font-size: 28px;
+        color: #155724;
+        margin-bottom: 15px;
+    }
+
+    /* Image Styling */
+    .product-image {
+        width: 100%; /* Full width for better image display */
+        height: 600px; /* Increased height for the image on the left side */
+        object-fit: cover;
+        border-radius: 10px;
+        margin-bottom: 20px; /* Space between image and text */
+    }
+
+    /* Notification Details */
+    .notification-card .btn {
+        background-color: #28a745; /* Green button */
+        border-color: #28a745;
+        color: #fff;
+        font-size: 1rem;
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-align: center;
+        width: auto;
+        cursor: pointer;
+        margin-top: 20px;
+        transition: background-color 0.3s;
+    }
+
+    .notification-card .btn:hover {
+        background-color: #218838; /* Darker green on hover */
+        border-color: #1e7e34;
+    }
+
+    /* Responsive Design for smaller screens */
+    @media (max-width: 768px) {
+        .service-card-container {
+            flex-direction: column; /* Stack vertically on smaller screens */
+            gap: 20px;
+        }
+
+        .product-image {
+            height: 250px; /* Slightly smaller image for mobile screens */
+        }
+
+        .service-card {
+            flex-basis: 100%; /* Make cards full-width on mobile */
+        }
+    }
+</style>
+
+<div class="service-card-container">
+    <!-- Product Image and Product Name (Left Side) -->
+    <div class="service-card product-card">
+        <img src="/images/{{ n.productid.productimage }}" class="product-image">
+        <i class="bi bi-hdd-network-fill icon"></i>
+        <h2>Product Details</h2>
+        <p><strong>Product Name:</strong> {{ n.productid.productname }}</p>
+    </div>
+
+    <!-- Notification Details (Right Side) -->
+    <div class="service-card notification-card">
+        <i class="bi bi-bell icon"></i>
+        <h2>Notification Details</h2>
+        <p><strong>Notification:</strong> {{ n.notification }}</p>
+        <p><strong>From Date:</strong> <strong style="color: #28a745;">{{ n.frdate }}</strong></p>
+        <p><strong>To Date:</strong> <strong style="color: #28a745;">{{ n.todate }}</strong></p>
+        <p><strong>Count:</strong> {{ n.count }}</p>
+        <p><strong>Amount:</strong> {{ n.amount }}</p>
+        <img src="/images/{{ n.image }}" class="product-image">
+
+        <a href="{% url 'sendrequest' notiid=n.notiid %}" class="btn">Send Request</a>
+    </div>
+</div>
+
+<br><br><br><br><br><br><br><br><br>
+
+{% include 'Farmer/footer.html' %}

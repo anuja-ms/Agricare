@@ -1,0 +1,37 @@
+{% include 'Admin/header.html' %}
+{% include 'Admin/sidebar.html' %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg p-4 rounded">
+                <h3 class="text-center mb-4">Product Registration</h3>
+
+                <form action="{% url 'product_process' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="form-group mb-3">
+                        <label for="productname" class="form-label">Product Name</label>
+                        <input type="text" name="productname" class="form-control" id="productname" placeholder="Enter Product Name" required>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="productimage" class="form-label">Product Image</label>
+                        <input type="file" name="productimage" class="form-control" id="productimage" required>
+                    </div>
+
+                    <div class="d-grid gap-2 mb-3">
+                        <button type="submit" class="btn btn-primary btn-lg">Add Product</button>
+                    </div>
+                </form>
+
+            </div>
+
+            <div class="text-center mt-4">
+                <a href="{% url 'viewproduct' %}" class="btn btn-warning w-50">View Products</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% include 'Admin/footer.html' %}

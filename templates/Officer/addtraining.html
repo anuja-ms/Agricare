@@ -1,0 +1,133 @@
+{% include 'Officer/header.html' %}
+
+{% load static %}
+<div class="container mt-5" style="background-color: #e8f5e9;">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <!-- Card Wrapper -->
+            <div class="card shadow-lg rounded">
+                <div class="card-header text-center" style="background-color: #4CAF50; color: white;">
+                    <h3>Add Training Class</h3>
+                </div>
+                <div class="card-body">
+                    <form action="{% url 'addtraining' %}" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <!-- Training Name Input -->
+                        <div class="form-group mb-4">
+                            <label for="tname">Training Class</label>
+                            <input
+                                type="text"
+                                class="form-control rounded-pill"
+                                name="tname"
+                                id="tname"
+                                placeholder="Enter training name"
+                                required pattern="^[A-Z][a-zA-Z\s]*" title="First letter should be capitalized"
+                            />
+                        </div>
+
+                        <!-- Description Textarea -->
+                        <div class="form-group mb-4">
+                            <label for="desc">Description</label>
+                            <textarea
+                                class="form-control rounded-pill"
+                                name="desc"
+                                id="desc"
+                                placeholder="Enter description"
+                                rows="4"
+                                required pattern="^[A-Z][a-zA-Z\s]*" title="First letter should be capitalized"
+                            ></textarea>
+                        </div>
+
+                        <!-- Date Input -->
+                        <div class="form-group mb-4">
+                            <label for="date">Date</label>
+                            <input
+                                type="date"
+                                class="form-control rounded-pill"
+                                name="date"
+                                id="date"
+                                required
+                            />
+                        </div>
+
+                        <!-- Image Input -->
+                        <div class="form-group mb-4">
+                            <label for="image">Upload Image</label>
+                            <input
+                                type="file"
+                                class="form-control rounded-pill"
+                                name="images"
+                                id="image"
+                                required
+                            />
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="text-center">
+                            <input
+                                type="submit"
+                                class="btn btn-primary rounded-pill px-4"
+                                value="Add Notification"
+                            />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Custom Styles for Form */
+.card {
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.card-header {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.form-control {
+    border-radius: 50px; /* Round the input fields */
+    padding: 15px;
+    font-size: 1rem;
+}
+
+.form-group label {
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #4CAF50; /* Green color for labels */
+}
+
+textarea.form-control {
+    resize: none;
+}
+
+.btn-primary {
+    background-color: #4CAF50;
+    border-color: #4CAF50;
+    padding: 10px 30px;
+    font-size: 1.1rem;
+}
+
+.btn-primary:hover {
+    background-color: #45a049;
+    border-color: #45a049;
+}
+
+/* Space the sections out nicely */
+.mb-4 {
+    margin-bottom: 1.5rem !important;
+}
+
+/* Add some spacing between the form and the footer */
+footer {
+    margin-top: 50px;
+}
+</style>
+
+{% include 'Officer/footer.html' %}

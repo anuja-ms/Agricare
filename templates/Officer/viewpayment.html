@@ -1,0 +1,111 @@
+{% include 'Officer/header.html' %}
+
+<style>
+/* Adding Card style to the table */
+.card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #e0f7e0; /* Light green background for the card */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    width: 90%; /* Reduce the card width */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.card-header {
+    background-color: #81c784; /* Light green background for the header */
+    color: black;
+    padding: 10px; /* Reduce header padding */
+    border-radius: 8px 8px 0 0;
+}
+
+.card-body {
+    padding: 15px; /* Reduce body padding */
+}
+
+.table {
+    width: 100%;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+}
+
+.table th, .table td {
+    text-align: center;
+    padding: 8px; /* Reduce padding inside the cells */
+    vertical-align: middle;
+    font-size: 16px; /* Increased font size for all table text */
+}
+
+.table-bordered {
+    border: 1px solid #ddd;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.table img {
+    max-width: 100%;
+    height: auto;
+}
+
+.btn-sm {
+    padding: 5px 10px;
+}
+
+.thead-light {
+    background-color: #f8f9fa;
+    color: #495057;
+}
+
+.table th {
+    font-weight: bold;
+}
+
+.table td {
+    font-weight: normal;
+}
+</style>
+
+<div class="table_section padding_infor_info">
+    <div class="table-responsive-sm">
+        <!-- Card Wrapper -->
+        <div class="card">
+            <div class="card-header text-center">
+                <h4>Payments</h4>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered table-hover">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>SI No</th>
+                            <th>Farmer</th>
+                            <th>Notification</th>
+                            <th>Product</th>
+                            <th>Total amount</th>
+                            <th>Pay Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for p in pay %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ p.reqid.farmerid.farmername }}</td>
+                            <td>{{ p.reqid.notiid.notification }}</td>
+                            <td>{{ p.reqid.notiid.productid.productname }}</td>
+                            <td>{{ p.totalamount }}</td>
+                            <td>{{ p.paydate }}</td>
+                            <td>{{ p.status }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<br><br><br><br><br><br>
+<br><br><br><br><br><br>
+{% include 'Officer/footer.html' %}

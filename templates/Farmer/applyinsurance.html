@@ -1,0 +1,135 @@
+{% include 'Farmer/header.html' %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farm Insurance Form</title>
+    <style>
+
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            min-height: 90vh; /* Increased height */
+        }
+        .container {
+            background: #ccffcc;
+            padding: 30px; /* Increased padding */
+            border-radius: 10px;
+            box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.15);
+            width: 70%; /* Increased width */
+            max-width: 800px; /* Increased max width */
+            min-height: 500px; /* Increased height */
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 12px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            border: 1px solid #66cc66;
+            border-radius: 5px;
+            font-size: 16px; /* Increased text size */
+        }
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            margin-top: 6px;
+        }
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: normal;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 20px;
+            width: 100%;
+            font-size: 18px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<main>
+    <div class="container">
+        <h2>Farm Insurance Application</h2>
+
+        <form action="{% url 'insuranceprocess' %}" method="post" role="form" enctype="multipart/form-data">
+            {% csrf_token %}
+      <input type="hidden" name="apply" value="{{insurance.applyid}}" id="email">
+
+
+
+            <!-- Farmer Information -->
+            <label for="farmerName">Farmer Name</label>
+            <input type="text" id="farmerName" value="{{insurance.farmerid.farmername }}" readonly>
+
+            <label for="landDetails">Land Details</label>
+            <input type="text" id="landDetails" value="{{insurance.landdetails }}" readonly>
+
+            <label for="cropDetails">Crop Details</label>
+            <input type="text" id="cropDetails" value="{{insurance.cropdetails }}" readonly>
+
+            <!-- Disaster Type Selection -->
+            <label>Type of Disaster</label>
+            <div class="radio-group">
+                <label>
+                    <input type="radio" id="wind" name="disaster" value="Natural Disaster">
+                    Natural Disaster
+                </label>
+
+                <label>
+                    <input type="radio" id="animals" name="disaster" value=" Biological Disaster">
+                    Biological Disaster
+                </label> 
+                <label>
+                    <input type="radio" id="animals" name="disaster" value="Man-made Disaster">
+                    Man-made Disaster
+                </label>
+
+                <label>
+                    <input type="radio" id="others" name="disaster" value="Climate-Related Disaster">
+                    Climate-Related Disaster
+                </label>
+            </div>
+
+            <!-- Description Box -->
+            <label for="description">Description of Damage</label>
+            <textarea id="description" name="description" rows="6" placeholder="Enter damage details..."></textarea>
+            <div class="row">
+                <div class="col-md-6 col-12 mb-3">
+                  <label for="photo1" class="form-label">Upload Photo 1</label>
+                  <input type="file" name="photo1" class="form-control" id="photo1" accept="image/*" required>
+                </div>
+                <div class="col-md-6 col-12 mb-3">
+                  <label for="photo2" class="form-label">Upload Photo 2</label>
+                  <input type="file" name="photo2" class="form-control" id="photo2" accept="image/*" required>
+                </div>
+              </div>
+
+            <!-- Submit Button -->
+            <button type="submit">Submit Insurance Claim</button>
+        </form>
+    </div>
+</main>
+
+</body>
+</html>

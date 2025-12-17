@@ -1,0 +1,51 @@
+{% include 'Admin/header.html' %}
+{% include 'Admin/sidebar.html' %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card shadow-lg p-4 rounded">
+                <h3 class="text-center mb-4">Product List</h3>
+ <!-- Register product Button -->
+    <div class="d-flex justify-content-end mt-3">
+        <a href="{% url 'product' %}"
+           onclick="return confirm('Do you want to Register a product?')"
+           class="btn btn-warning w-50">Add Product</a>
+    </div>
+                <div class="table-responsive-sm">
+                    <table class="table table-bordered table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>SI No</th>
+                                <th>Product Name</th>
+                                <th>Product Image</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for pr in product %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ pr.productname }}</td>
+                                <td><img src="/images/{{ pr.productimage }}" style="width: 100px; height: 60px;" class="img-fluid rounded"></td>
+                                <td>
+                                    <a href="{% url 'deleteproduct' productid=pr.productid %}"
+                                       onclick="return confirm('Do you want to delete this product?')"
+                                       class="btn btn-danger btn-sm">Delete</a>
+                                </td>
+                                <td>
+                                    <a href="{% url 'editproduct' productid=pr.productid %}"
+                                       onclick="return confirm('Do you want to edit this product?')"
+                                       class="btn btn-danger btn-sm">Edit</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+ {% include 'Admin/footer.html' %}

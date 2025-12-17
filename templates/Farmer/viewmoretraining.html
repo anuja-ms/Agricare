@@ -1,0 +1,54 @@
+{% include 'Farmer/header.html' %}
+{% load static %}
+
+<section id="about" class="about section">
+
+    <div class="content">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 mb-4 mb-lg-0">
+            <img src="/images/{{ training.image }}" alt="Image" class="img-fluid img-overlap" data-aos="zoom-out">
+          </div>
+          <div class="col-lg-5 ml-auto" data-aos="fade-up" data-aos-delay="100">
+            
+            <h2 class="content-title mb-4">
+              <strong>{{ training.trainingname }}</strong> 
+            </h2>
+            <p class="opacity-50">
+                {{ training.description }}
+            </p>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </section><!-- /About Section -->
+  <style>
+    .content p.opacity-50 {
+      font-size: 20px; /* Increase the font size */
+      line-height: 2.5; /* Improve readability */
+      color: #f6f5f5; /* Darken the text for better contrast */
+    }
+    .image-container {
+    width: 100%;
+    aspect-ratio: 9 / 16; /* Ensures a 9:16 ratio */
+    overflow: hidden; /* Prevents overflow */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #4CAF50; /* Green background (optional) */
+    border-radius: 10px; /* Rounded corners */
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures images fill the container properly */
+    border-radius: 5px; /* Slight rounding for a sleek look */
+}
+
+  </style>
+  
+  {% include 'Farmer/footer.html' %}
+  

@@ -1,0 +1,156 @@
+{% include 'Guest/header.html' %}
+{% load static %}
+
+
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;900&display=swap");
+
+    *,
+    body {
+        font-family: "Poppins", sans-serif;
+        font-weight: 400;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    html, body {
+        height: 100%;
+        background-image: url("{% static 'Guest/assets/img/background.jpg' %}"); /* Add your background image */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        overflow: hidden;
+    }
+
+    .form-holder {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        min-height: 100vh;
+    }
+
+    .form-content .form-items {
+        background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+        border: 3px solid rgba(255, 255, 255, 0.3); /* Light border for visibility */
+        padding: 40px;
+        display: inline-block;
+        width: 100%;
+        min-width: 840px;
+        max-width: 1000px;
+        border-radius: 10px;
+        text-align: left;
+        transition: all 0.4s ease;
+        backdrop-filter: blur(10px); /* Blurred effect for glassmorphism */
+    }
+
+    .form-content h3,
+    .form-content p,
+    .form-content label {
+        color: #fff;
+    }
+
+    .form-content input,
+.form-content select,
+.form-content textarea {
+    width: 100%;
+    padding: 9px 20px;
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent background */
+    border: 1px solid rgba(255, 255, 255, 0.4); /* Light border for visibility */
+    font-size: 15px;
+    font-weight: 300;
+    color: #fff; /* Text color */
+    margin-top: 16px;
+    box-sizing: border-box;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+/* Change background on focus */
+.form-content input:focus,
+.form-content select:focus,
+.form-content textarea:focus {
+    background-color: rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+/* Placeholder styling */
+.form-content input::placeholder,
+.form-content select,
+.form-content textarea::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+    .form-button {
+    display: flex;
+    justify-content: center; /* Horizontally centers the button */
+    align-items: center; /* Vertically aligns content */
+    margin-top: 20px;
+}
+
+
+    .btn-primary {
+        background-color: #32692e;
+        border: 0;
+        box-shadow: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 6px;
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background-color: #ade6b1;
+    }
+</style>
+
+<div class="form-body">
+    <div class="row">
+        <div class="form-holder">
+            <div class="form-content">
+                <div class="form-items">
+                    <h3>Register Today</h3>
+                    <p>Fill in the data below.</p>
+                    <form action="{% url 'Farmer_process' %}" method="post">
+                        {% csrf_token %}
+                        <div class="col-md-12">
+                            <input class="form-control" type="text" name="name" placeholder="Full Name" required pattern="^[A-Z][a-zA-Z\s]*" title="First letter should be capitalized">
+                        </div>
+                        <div class="col-md-12">
+                            <input class="form-control" type="email" name="email" placeholder="E-mail Address" required >
+                        </div>
+                        <div class="col-md-12">
+                            <input class="form-control" type="text" name="address" placeholder="Address" required pattern="^[A-Z][a-zA-Z\s]*" title="First letter should be capitalized">
+                        </div>
+                        <div class="col-md-12">
+                            <input class="form-control" type="number" name="cno" placeholder="Contact Number" minlength="10" maxlength="10" required>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" name="panchayathname" id="panchayath" required>
+                                <option>-----Select Panchayath-----</option>
+                                {% for p in panchayath %}
+                                <option value="{{p.panchayathid}}">{{p.panchayathname}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-12">
+                            <input class="form-control" type="text" name="username" placeholder="@Username" required>
+                        </div>
+                        <div class="col-md-12">
+                            <input class="form-control" type="password" name="password" placeholder="@Password" required>
+                        </div>
+                        <div class="form-button mt-9">
+                            <button id="submit" type="submit" class="btn btn-primary">Register</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'Guest/footer.html' %}

@@ -1,0 +1,29 @@
+{% include 'Admin/header.html' %}
+{% include 'Admin/sidebar.html' %}
+
+
+<div class="table_section padding_infor_info">
+    <div class="table-responseive-sm">
+        <table class="table">
+            <thead>
+                <form action="{% url 'location_process' %}" method="post">
+                    {% csrf_token %}
+                <tr>
+                <th>District Name</th>
+                <td><select name="districtid">
+                    <option value="">Select District</option>
+                    {% for d in districts%}
+                    <option value="{{d.districtid}}">{{d.districtname}}</option>
+                    {% endfor %}
+                </td>
+                </tr>
+                <tr><th>Location Name</th><td><input type="text" name="locationname" class="form-control"></td></tr>
+                <tr><th></th><td><button type="submit" class="btn btn-primary">Add</button></td></tr>
+                </form>
+            </thead>
+                
+            </thead>
+        </table>
+    </div>
+</div>
+{% include 'Admin/footer.html' %}

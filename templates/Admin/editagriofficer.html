@@ -1,0 +1,104 @@
+{% load static %}
+{% include 'Admin/header.html' %}
+{% include 'Admin/sidebar.html' %}
+
+<main id="main" class="main">
+  <div class="col-lg-8 mx-auto mt-5"> <!-- Increased the column width -->
+
+    <div class="card shadow-lg rounded-3">
+      <div class="card-body">
+        <h5 class="card-title text-center mb-4">Officer Name</h5>
+
+        <!-- Vertical Form -->
+        <form class="row g-4" method="post" action="{% url 'editagriofficer' Officer.officerid %}"> <!-- Increased spacing between fields -->
+          {% csrf_token %}
+
+          <div class="col-12">
+            <label for="inputName" class="form-label">Officer Name</label>
+            <input type="text" class="form-control form-control-lg" name="officername" id="inputName" value="{{Officer.officername}}" placeholder="Enter Officer name">
+          </div>
+          <div class="col-12">
+            <label for="inputName" class="form-label">Email</label>
+            <input type="text" class="form-control form-control-lg" name="email" id="inputName" value="{{Officer.email}}" placeholder="Enter email">
+          </div>
+          <div class="col-12">
+            <label for="inputName" class="form-label">contactno</label>
+            <input type="number" class="form-control form-control-lg" name="cno" id="inputName" value="{{Officer.contactno}}" placeholder="Enter Contact number">
+          </div>
+          <div class="form-group">
+            <label for="categoryid">Panchayath Name</label>
+            <select name="panchayathid" id="panchayathid" class="form-control" required>
+                <option value="">Select Panchayath</option>
+                {% for p in panchayath %}
+                <option value="{{ p.panchayathid }}" {% if p.panchayathid == p.panchayathid_id %}selected{% endif %}>{{ p.panchayathname }}</option>
+                {% endfor %}
+            </select>
+        </div>
+          <div class="col-12">
+            <label for="inputName" class="form-label">Username</label>
+            <input type="text" class="form-control form-control-lg" name="uname" id="inputName" value="{{Officer.username}}" placeholder="Enter Username">
+          </div>
+          <div class="col-12">
+            <label for="inputName" class="form-label">Password</label>
+            <input type="text" class="form-control form-control-lg" name="password" id="inputName" value="{{Officer.password}}" placeholder="Enter Password">
+          </div>
+
+          <div class="text-center mt-5"> <!-- Increased space between fields and buttons -->
+            <button type="submit" class="btn btn-primary btn-lg w-75">Update</button> <!-- Increased button width -->
+            <button type="reset" class="btn btn-outline-secondary btn-lg w-75 mt-3">Reset</button> <!-- Increased button width and added spacing -->
+          </div>
+        </form>
+        <!-- Vertical Form -->
+
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Optional: Add custom styles in your CSS file -->
+<style>
+  .main {
+    padding: 40px;
+    background-color: white;
+  }
+
+  .card {
+    border-radius: 20px; /* Increased roundness for the card */
+    background-color: #fff;
+  }
+
+  .card-title {
+    color: #343a40;
+    font-weight: 600;
+  }
+
+  .btn {
+    transition: all 0.3s ease;
+  }
+
+  .btn-primary {
+    background-color: #ca83d8;
+    border-color: #d66dde;
+  }
+
+  .btn-outline-secondary {
+    color: #c852c0;
+    border-color: #d05fd4;
+  }
+
+  .btn:hover {
+    transform: translateY(-3px);
+  }
+
+  .form-control-lg {
+    padding: 1rem 9.9rem; /* Increased padding for a larger height */
+    font-size: 1.25rem; /* Slightly larger font size */
+  }
+
+  .form-label {
+    font-size: 1.125rem; /* Increased font size */
+    font-weight: 500;
+  }
+</style>
+
+{% include 'Admin/footer.html' %}

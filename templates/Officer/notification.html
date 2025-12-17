@@ -1,0 +1,239 @@
+{% include 'Officer/header.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification Form</title>
+
+    <!-- Include Font Awesome (for icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        /* General Page Background */
+        body {
+            background-color: rgb(78, 116, 78);
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        /* Card Container */
+        .card {
+            background-color: rgba(255, 255, 255, 0.8); /* White with 80% transparency */
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%; /* Full width */
+            max-width: 1000px; /* Limit width for better readability */
+            margin: 0 auto;
+        }
+
+        /* Title Styling */
+        .card h2 {
+            color: green;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Icon Styling */
+        .card h2 i {
+            margin-right: 10px;
+            color: green;
+        }
+
+        /* Form Controls */
+        .form-control {
+            border-radius: 10px;
+            padding: 12px 15px;
+            font-size: 1.1rem;
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .form-control-lg {
+            font-size: 1.2rem;
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Button Styling */
+        .btn-primary {
+            background-color: green;
+            border-color: green;
+            font-size: 1.2rem;
+            padding: 12px;
+            border-radius: 10px;
+            width: 100%;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        /* Label Styling */
+        label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        /* Make all input boxes equal length */
+        .form-row .form-group {
+            flex: 1;
+            padding-right: 10px;
+        }
+
+        .form-row .form-group:last-child {
+            padding-right: 0;
+        }
+
+        /* Mobile responsive improvements */
+        @media (max-width: 768px) {
+            .card {
+                padding: 20px;
+            }
+
+            .form-control, .form-control-lg {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8">
+            <!-- Card Container -->
+            <div class="card shadow-lg border-light p-4">
+                <h2 class="text-center mb-4">
+                    <i class="fas fa-comment-dots"></i> Notification Form
+                </h2>
+                <form action="{% url 'noti_process' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <!-- Notification Input -->
+                    <div class="form-group mb-3">
+                        <label for="noti">Notification</label>
+                        <input
+                            type="text"
+                            class="form-control form-control-lg"
+                            name="noti"
+                            id="noti"
+                            placeholder="Enter notification"
+                            required pattern="^[A-Z][a-zA-Z\s]*" title="First letter should be capitalized"
+                        />
+                    </div>
+
+                    <!-- Date Inputs -->
+                    <div class="form-row d-flex">
+                        
+
+                        <div class="form-group mb-3">
+                            <label for="frdate">From Date</label>
+                            <input
+                                type="date"
+                                class="form-control form-control-lg"
+                                name="frdate"
+                                id="frdate"
+                                required
+                            />
+                        </div>
+                        <div class="form-group mb-3">
+                          <label for="todate">To Date</label>
+                          <input
+                              type="date"
+                              class="form-control form-control-lg"
+                              name="todate"
+                              id="todate"
+                              required
+                          />
+                      </div>
+                    </div>
+
+                    <!-- Numeric Inputs -->
+                    <div class="form-row d-flex">
+                        <div class="form-group mb-3">
+                            <label for="count">Count</label>
+                            <input
+                                type="number"
+                                class="form-control form-control-lg"
+                                name="count"
+                                id="count"
+                                placeholder="Enter count"
+                                required
+                            />
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="amount">Amount</label>
+                            <input
+                                type="number"
+                                class="form-control form-control-lg"
+                                name="amount"
+                                id="amount"
+                                placeholder="Enter amount"
+                                required
+                            />
+                        </div>
+                    </div>
+
+                    <!-- Product Dropdown -->
+                    <div class="form-group mb-4">
+                        <label for="Product">Product</label>
+                        <select
+                            class="form-control form-control-lg"
+                            name="productid"
+                            id="Product"
+                            required
+                        >
+                            <option value="">--- Select Product ---</option>
+                            {% for product in product %}
+                                <option value="{{ product.productid }}">{{ product.productname }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- File Upload -->
+                    <div class="form-group mb-3">
+                        <label for="image">Upload Image</label>
+                        <input
+                            type="file"
+                            class="form-control form-control-lg"
+                            name="images"
+                            id="image"
+                            required
+                        >
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="text-center mt-4">
+                        <input
+                            type="submit"
+                            class="btn btn-primary btn-lg btn-block"
+                            value="Add Notification"
+                        />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'Admin/footer.html' %}
+</body>
+</html>

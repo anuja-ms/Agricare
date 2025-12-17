@@ -1,0 +1,178 @@
+{% include 'Farmer/header.html' %}
+{% load static %}
+
+<script src="{% static 'admin/jquery-3.7.1.min.js' %}"></script>
+<script>
+$(document).ready(function() {
+    $.ajaxSetup({
+        headers: { "X-CSRFToken": '{{ csrf_token }}' }
+    });
+
+    $("#panchayath").change(function() {
+        var panchayathid = $(this).val();
+        $.ajax({
+            type: "POST",
+            url: "{% url 'fillofficer' %}",
+            data: { did: panchayathid },
+            dataType: "json",
+            success: function(data) {
+                $("#officer").empty();
+                $("#officer").append("<option value=''>--Select officer--</option>");
+                $.each(data, function(key, val) {
+                    var row = "<option value='" + val.officerid + "'>" + val.officername + "</option>";
+                    $("#officer").append(row);
+                });
+            }
+        });
+    });
+
+    // Form validation before submission
+    $("form").submit(function(event) {
+        var officer = $("#officer").val();
+        if (!officer) {
+            alert("Please select a valid officer before submitting.");
+            event.preventDefault();  // Stop form submission
+        }
+    });
+});
+</script>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Insurance Application Form</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: rgb(189, 231, 189);
+    }
+
+    .contact-form {
+      background: #ffffff;
+      padding: 30px; /* Reduced padding to make it more compact */
+      border-radius: 10px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      max-width: 1000px; /* Increased width */
+      margin: 50px auto;
+    }
+
+    .contact-form h3 {
+      text-align: center;
+      margin-bottom: 20px; /* Reduced margin */
+      color: #006400;
+      font-size: 24px; /* Reduced font size for title */
+    }
+
+    .form-control {
+      border-radius: 10px;
+      padding: 10px; /* Reduced padding to decrease height */
+      font-size: 14px; /* Slightly smaller font size */
+      background-color: #f9f9f9;
+    }
+
+    .form-control:focus {
+      border-color: #006400;
+      box-shadow: 0 0 5px rgba(0, 100, 0, 0.5);
+    }
+
+    .green-btn {
+      background-color: rgb(0, 100, 0);
+      color: white;
+      border: none;
+      padding: 12px; /* Reduced padding for button */
+      font-size: 16px; /* Adjusted font size */
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+      display: block;
+    }
+
+    .green-btn:hover {
+      background-color: rgb(0, 80, 0);
+    }
+
+    label {
+      font-weight: bold;
+      color: #006400;
+      font-size: 14px; /* Slightly smaller font size */
+    }
+
+    .mb-3 {
+      margin-bottom: 15px; /* Reduced margin between form fields */
+    }
+
+    /* Responsive design for smaller screens */
+    @media (max-width: 768px) {
+      .contact-form {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="contact-form">
+      <center><h3><b>Insurance Application Form</b></h3></center>
+      <form action="{% url 'insuranceapplication' %}" method="post" role="form" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="mb-3">
+          <label for="landdetails" class="form-label">Land Details</label>
+          <textarea name="landdetails" class="form-control" id="landdetails" rows="3" placeholder="Enter your land details" required pattern="^[A-Z][a-zA-Z\s]*" title="First letter should be capitalized"></textarea> <!-- Reduced rows -->
+        </div>
+        <div class="mb-3">
+          <label for="cropdetails" class="form-label">Crop Details</label>
+          <textarea name="cropdetails" class="form-control" id="cropdetails" rows="3" placeholder="Enter your Crop Details" required></textarea> <!-- Reduced rows -->
+        </div>
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea name="description" class="form-control" id="description" rows="3" placeholder="Description" required></textarea> <!-- Reduced rows -->
+        </div>
+
+        <!-- Panchayath Selection -->
+        <div class="col-md-6">
+          <div class="form-group">
+              <label for="panchayath" class="form-label">Panchayath</label>
+              <select class="form-control" name="panchayath" id="panchayath" required>  
+                  <option value="">--Select Panchayath--</option>
+                  {% for d in panchayath %}
+                  <option value="{{ d.panchayathid }}">{{ d.panchayathname }}</option>
+                  {% endfor %}
+              </select>
+          </div>
+      </div>
+
+      <!-- Officer Selection -->
+      <div class="col-md-6">
+          <div class="form-group">
+              <label for="officer" class="form-label">Officer</label>
+              <select name="officer" id="officer" class="form-control" required>
+                  <option value="">--Select officer--</option>
+              </select>
+          </div>
+      </div>
+
+        <!-- Photo Upload -->
+        <div class="row">
+          <div class="col-md-6 col-12 mb-3">
+            <label for="photo1" class="form-label">Upload Photo 1</label>
+            <input type="file" name="photo1" class="form-control" id="photo1" accept="image/*" required>
+          </div>
+          <div class="col-md-6 col-12 mb-3">
+            <label for="photo2" class="form-label">Upload Photo 2</label>
+            <input type="file" name="photo2" class="form-control" id="photo2" accept="image/*" required>
+          </div>
+        </div>
+
+        <br>
+        <button type="submit" class="green-btn">Submit</button>
+        <br>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
+{% include 'Farmer/footer.html' %}

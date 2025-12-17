@@ -1,0 +1,50 @@
+{% include 'Admin/header.html' %}
+{% include 'Admin/sidebar.html' %}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+
+            <!-- Card Container -->
+            <div class="card shadow-lg p-4 rounded">
+
+                <!-- Card Title -->
+                <h3 class="text-center mb-4">Add Panchayath</h3>
+
+                <!-- Form -->
+                <form action="{% url 'panchayath_process' %}" method="post">
+                    {% csrf_token %}
+
+                    <!-- Panchayath Name Field -->
+                    <div class="form-group mb-4">
+                        <label for="panchayathname" class="form-label">Panchayath Name</label>
+                        <div class="input-group">
+                            <div class="input-group-text">
+                                <i class="bi bi-house-door"></i>
+                            </div>
+                            <input type="text" name="panchayathname" class="form-control" id="panchayathname" placeholder="Enter Panchayath Name" required>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg">Add Panchayath</button>
+                    </div>
+                </form>
+
+            </div>
+
+            <!-- View Panchayath Button (aligned to the right) -->
+            <div class="d-flex justify-content-center mt-4">
+                <a href="{% url 'viewpanchayath' %}"
+                   onclick="return confirm('Do you want to view panchayath?')"
+                   class="btn btn-warning w-50">View Panchayath</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% include 'Admin/footer.html' %}
+
+

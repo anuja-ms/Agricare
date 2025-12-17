@@ -1,0 +1,138 @@
+{% include 'Farmer/header.html' %}
+
+<style>
+/* Style for the payment form container */
+.payment-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+}
+
+.payment-form-card {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 30px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.payment-form-header {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+}
+
+.payment-form-header h2 {
+    margin-bottom: 10px;
+    color: #2e7d32;
+}
+
+.payment-form-section {
+    margin-bottom: 20px;
+}
+
+.payment-form-label {
+    font-weight: bold;
+    color: #555;
+    font-size: 14px;
+}
+
+.payment-form-input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    background-color: #f4f4f4;
+}
+
+.payment-form-input:focus {
+    outline-color: #2e7d32;
+    border-color: #2e7d32;
+}
+
+.payment-form-button {
+    background-color: #2e7d32;
+    color: white;
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    cursor: pointer;
+}
+
+.payment-form-button:hover {
+    background-color: #388e3c;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .payment-form-card {
+        padding: 20px;
+    }
+}
+</style>
+
+<div class="container payment-form-container">
+    <div class="payment-form-card">
+        <div class="payment-form-header">
+            <h2>Payment Form</h2>
+            <p>Complete your payment details below</p>
+        </div>
+
+        {% for f in req %}
+        <div class="product-details" style="border: 1px solid #ddd; padding: 20px;">
+            <h2 class="product-name">{{ f.reqid.productname }}</h2>
+            <div>
+                <h3 class="product-price">Rs. {{ f.totalamount }}</h3>
+            </div>
+
+            <form action="{% url 'paymentinsert' %}" method="POST" style="margin-top: 20px;">
+                {% csrf_token %}
+                <input type="hidden" name="request" value="{{f.reqid}}">
+
+                <div class="payment-form-section">
+                    <label class="payment-form-label">Farmer Name</label>
+                    <input type="text" value="{{f.farmerid.farmername}}" name="cno" id="no" class="payment-form-input" readonly>
+                </div>
+
+                <div class="payment-form-section">
+                    <label class="payment-form-label">Total Amount</label>
+                    <input type="text" name="total_amount" id="totalamount" value="{{f.totalamount}}" class="payment-form-input" readonly>
+                </div>
+
+                <div class="payment-form-section">
+                    <label class="payment-form-label">Card Number</label>
+                    <input type="text" name="cno" id="cno" class="payment-form-input" placeholder="XXXX-XXXX-XXXX-XXXX" required>
+                </div>
+
+                <div class="payment-form-section">
+                    <label class="payment-form-label">Card Holder Name</label>
+                    <input type="text" name="cname" id="cname" class="payment-form-input" placeholder="Name on Card" required>
+                </div>
+
+                <div class="payment-form-section">
+                    <label class="payment-form-label">Expiry Date</label>
+                    <input type="date" name="edate" id="edate" class="payment-form-input" required>
+                </div>
+
+                <div class="payment-form-section">
+                    <label class="payment-form-label">CVV</label>
+                    <input type="password" name="cvv" id="cvv" class="payment-form-input" placeholder="XXX" required>
+                </div>
+
+                <button type="submit" class="payment-form-button">Pay Now</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% include 'Farmer/footer.html' %}
